@@ -1,4 +1,7 @@
-module.exports = 	function solveSudoku(sudoku) {
+module.exports = function solveSudoku(sudoku) {
+
+		let i = 0;
+		let j = 0;
 
 		function check() {
 			let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -19,6 +22,7 @@ module.exports = 	function solveSudoku(sudoku) {
 			return arr;
 		}
 
+		function plusch(sudoku) {
 		if(i > 8) i = 0, j++;
 		if(j > 8) {
 			return sudoku;
@@ -27,7 +31,7 @@ module.exports = 	function solveSudoku(sudoku) {
 		//если элемент был	
 		if(sudoku[j][i]) { 
 			i++;
-			if (solveSudoku(sudoku)) return sudoku;
+			if (plusch(sudoku)) return sudoku;
 			if(--i < 0) i = 8, j--;
 			return 0;
 		}
@@ -36,12 +40,11 @@ module.exports = 	function solveSudoku(sudoku) {
 		let posNum = check();
 		for (let c = 0; c < posNum.length; c++) {
 			sudoku[j][i++] = posNum[c];
-			if(solveSudoku(sudoku)) return sudoku;
+			if(plusch(sudoku)) return sudoku;
 		}
 		sudoku[j][i--] = 0;
 		if(i < 0) i = 8, j--;
 		return 0;
+		}
+		return plusch(sudoku);
 	}
-
-	let i = 0;
-	let j = 0;
